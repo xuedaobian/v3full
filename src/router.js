@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
-let token = localStorage.getItem("token") || "";
+import { useStore } from './stores/auth'
+let token = "";
 
 const routes = [
   {
@@ -18,8 +18,6 @@ const routes = [
   }
 ]
 
-
-
 const router = createRouter({
   history: createWebHistory(),
   routes
@@ -27,14 +25,21 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   // 而不是去检查每条路由记录
-  if (to.meta.requiresAuth && !token) {
+  if (to.meta.requiresAuth) {
     // 此路由需要授权，请检查是否已登录
-    // 如果没有，则重定向到登录页面
-    return {
-      path: '/login-register',
-      // 保存我们所在的位置，以便以后再来
-      query: { redirect: to.fullPath },
+    if (!token && localStorage.getItem("token")) {
+      let store = useStore();
+      store.setToken(localStorage.getItem("token"));
+      store.setUser(JSON.parse(localStorage.getItem("user")));
+      token = store.token;
     }
+    // 如果没有，则重定向到登录页面
+    if (!token)
+      return {
+        path: '/login-register',
+        // 保存我们所在的位置，以便以后再来
+        query: { redirect: to.fullPath },
+      }
   }
 })
 export default router

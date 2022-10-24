@@ -6,7 +6,7 @@ export const useStore = defineStore({
     token: '',
     user: null,
   }),
-  getters: {},
+  getters: { name: (state) => state.user?.name },
   actions: {
     setToken(token) {
       this.token = token;
