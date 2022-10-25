@@ -1,12 +1,22 @@
 <template>
   <div>
-    <HeaderBarVue></HeaderBarVue>
-    <div class="post-container">
-      <post v-for="i in 4"></post>
+    <HeaderBar></HeaderBar>
+    <div class="post-container relative text-center">
+      <post v-for="post of posts" class="mt-1 ml-auto mr-auto" :post="post"></post>
     </div>
+    <AddPost @add-post="addPost"></AddPost>
   </div>
 </template>
 <script setup>
-import HeaderBarVue from '../components/HeaderBar.vue';
+import HeaderBar from '../components/HeaderBar.vue';
 import Post from '../components/Post.vue';
+import AddPost from '../components/AddPost.vue';
+import getPosts from './../api/api';
+import { ref } from 'vue';
+
+const posts = ref([]);
+
+const addPost = (post) => {
+  posts.value.push(post);
+}
 </script>

@@ -13,7 +13,7 @@ const logout = () => {
 </script>
 
 <template>
-  <div class="w-full bg-black text-white">
+  <div class="w-full bg-black text-white p-1">
     <span>
       {{ name || '未登录' }}
     </span>
