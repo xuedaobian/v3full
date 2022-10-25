@@ -10,38 +10,34 @@
       <input type="password" id="password" placeholder="密码" v-model="password">
     </label>
     <br>
-    <button @click="loginAndRegister">登录</button>
+    <button @click="login">登录</button>
   </div>
 </template>
 
 <script setup>
 import { useStore } from '../stores/auth'
-// import http from '../api/api'
+import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 const name = ref('')
 const password = ref('')
 const auth = useStore()
 const router = useRouter()
-const loginAndRegister = () => {
+const login = () => {
   if (name.value === '' || password.value === '') {
     alert('请输入用户名和密码')
     return
   }
-  // http('/login',
-  //   {
-  //     name: name.value,
-  //     password: password.value
-  //   },
-  //   'POST',
-  // ).then(res => {
-  //   console.log(res)
-  // })
-  auth.setToken('123')
-  auth.setUser({
+  const data = {
     name: name.value,
     password: password.value
+  }
+  // 发起网络请求
+  axios.post('http://localhost:8081/login', data).then(res => {
+    console.log(res)
   })
+  auth.setToken('123')
+  auth.setUser(data)
   router.push('/')
 }
 </script>

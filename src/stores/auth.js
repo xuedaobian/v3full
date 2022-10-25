@@ -10,7 +10,7 @@ export const useStore = defineStore({
   actions: {
     setToken(token) {
       this.token = token;
-      localStorage.setItem("token", token);
+      localStorage.setItem("AuthorizationToken", token);
     },
     setUser(user) {
       this.user = user;
@@ -19,7 +19,7 @@ export const useStore = defineStore({
     logout() {
       this.token = "";
       this.user = null;
-      localStorage.removeItem("token");
+      localStorage.removeItem("AuthorizationToken");
       localStorage.removeItem("user");
     },
   },

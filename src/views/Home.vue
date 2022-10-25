@@ -11,7 +11,6 @@
 import HeaderBar from '../components/HeaderBar.vue';
 import Post from '../components/Post.vue';
 import AddPost from '../components/AddPost.vue';
-import getPosts from './../api/api';
 import { ref } from 'vue';
 
 const posts = ref([]);

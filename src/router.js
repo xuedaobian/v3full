@@ -27,9 +27,9 @@ router.beforeEach((to, from) => {
   // 而不是去检查每条路由记录
   if (to.meta.requiresAuth) {
     // 此路由需要授权，请检查是否已登录
-    if (!token && localStorage.getItem("token")) {
+    if (!token && localStorage.getItem("AuthorizationToken")) {
       let store = useStore();
-      store.setToken(localStorage.getItem("token"));
+      store.setToken(localStorage.getItem("AuthorizationToken"));
       store.setUser(JSON.parse(localStorage.getItem("user")));
       token = store.token;
     }

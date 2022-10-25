@@ -25,9 +25,13 @@ const addComment = () => {
   })
   comment.value = ''
 }
+const cancelComment = () => {
+  commented.value = false
+  comment.value = ''
+}
 </script>
 <template>
-  <div class="text-while max-sm: bg-gray-300 w-2/4 text-left pl-4 pt-2 relative">
+  <div class="text-while max-sm: bg-gray-300 w-2/4 text-left pl-4 pt-2 relative pb-2">
     <div class="edit" v-if="store.name !== post.author"><button class="text-white absolute right-1 top-1">编辑</button>
     </div>
     <header>
@@ -41,11 +45,12 @@ const addComment = () => {
       <h1 class="text-2xl font-semibold mb-3">{{ post.title }}</h1>
       <p class="text-sm">{{ post.content }}</p>
     </main>
-    <footer class="comment">
+    <footer class="comment text-right pr-4">
       <label for="comment" v-if="commented">
-        <textarea name="comment" id="comment" cols="70" rows="3" v-model="comment"></textarea>
+        <textarea name="comment" class="w-full" id="comment" cols="70" rows="3" v-model="comment"></textarea>
       </label>
-      <button class="text-white" @click="addComment">评论</button>
+      <button class="text-white mr-4" @click="addComment">评论</button>
+      <button class="text-white" @click="cancelComment" v-if="commented">算了</button>
     </footer>
     <div class="right-bar">
       <Comment v-for="c of comments" :name="c.name" :comment="c.comment"></Comment>
